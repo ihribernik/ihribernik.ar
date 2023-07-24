@@ -13,8 +13,8 @@ const About = ({ info }: { info: AboutProps }) => {
       <div className="flex flex-col pt-4">
         <h1 className="text-3xl font-bold pb-4 underline">Sobre mi: </h1>
         {info.paragraphs &&
-          info.paragraphs.map((p) => (
-            <p className="text-sm font-normal">
+          info.paragraphs.map((p, index) => (
+            <p className="text-sm font-normal" key={"about-p" + index}>
               {p
                 .replace("{employer}", current_job.employer)
                 .replace("{position}", current_job.position)}

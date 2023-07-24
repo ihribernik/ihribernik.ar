@@ -24,8 +24,12 @@ const Footer = ({ info }: { info: FooterProps }) => {
           <span>Conéctate conmigo en las redes sociales:</span>
         </div>
         <div className=" lg:flex lg:justify-center">
-          {info.socialMediaButtons.map((item) => (
-            <SocialButton href={item.href} color={item.color}>
+          {info.socialMediaButtons.map((item, index) => (
+            <SocialButton
+              href={item.href}
+              color={item.color}
+              key={"footer-socialbutton-" + index}
+            >
               <item.component
                 className={styles.socialSvg}
                 height={20}
@@ -45,8 +49,11 @@ const Footer = ({ info }: { info: FooterProps }) => {
             <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
               Contacto
             </h6>
-            {info.contact.map((item) => (
-              <p className="mb-4 flex items-center justify-center md:justify-start">
+            {info.contact.map((item, index) => (
+              <p
+                className="mb-4 flex items-center justify-center md:justify-start"
+                key={"footer-p-" + index}
+              >
                 <item.component
                   className="mr-3 h-5 w-5"
                   height={20}
@@ -60,15 +67,8 @@ const Footer = ({ info }: { info: FooterProps }) => {
       </div>
       <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
         <span>
-          ©{" "}
-          {currentDate >= creationDate ? (
-            <>
-              {creationDate} - {currentDate}
-            </>
-          ) : (
-            <> {creationDate} </>
-          )}
-          Ivan Hribernik con ❤️. Desde Buenos Aires, Argentina 🇦🇷
+          © {creationDate} - {currentDate} Ivan Hribernik con ❤️. Desde Buenos
+          Aires, Argentina 🇦🇷
         </span>
       </div>
     </footer>
