@@ -1,7 +1,6 @@
 export function CvButton() {
-
   const handleOnClick = () => {
-    console.log('downloading cv....')
+    console.log("downloading cv....");
   };
 
   return (
@@ -19,11 +18,11 @@ export function CvButton() {
         className="w-10 h-10"
         viewBox="0 0 43.916 43.916"
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           <g>

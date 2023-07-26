@@ -13,7 +13,7 @@ const styles = {
   socialSvg: "w-4 h-4",
 };
 
-const Footer = ({ info }: { info: FooterProps }) => {
+const Footer = (info: FooterProps) => {
   const creationDate = new Date("2022-12-01").getFullYear();
   const currentDate = new Date().getFullYear();
 

@@ -1,3 +1,12 @@
+interface TimeLineItemProps {
+  date: string;
+  details: string[];
+  duration?: number;
+  employer: string;
+  position: string;
+  stack?: string[];
+}
+
 const TimelineItem = ({
   date,
   details,
@@ -5,14 +14,7 @@ const TimelineItem = ({
   employer,
   position,
   stack,
-}: {
-  date: string;
-  details: string[];
-  duration?: number;
-  employer: string;
-  position: string;
-  stack?: string[];
-}) => {
+}: TimeLineItemProps) => {
   return (
     <li className="mb-10 ml-4">
       {/* TODO: cambiar este div vacio por algo mas representativo, algo como ul con un li para que sea mas semantico */}

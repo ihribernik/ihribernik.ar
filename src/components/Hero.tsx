@@ -1,7 +1,7 @@
 import HeroJpg from "../assets/images/hero.jpg";
 import { HeroProps } from "../interfaces";
 
-const Hero = ({ info }: { info: HeroProps }) => {
+const Hero = (info: HeroProps) => {
   return (
     <section
       className="w-full bg-no-repeat bg-cover bg-center h-screen relative"

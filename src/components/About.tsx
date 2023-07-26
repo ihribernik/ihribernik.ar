@@ -1,23 +1,18 @@
-import data from "../data/jobs";
 import { AboutProps } from "../interfaces";
 
-function getFirstJob() {
-  return data[0];
-}
-
-const About = ({ info }: { info: AboutProps }) => {
-  const current_job = getFirstJob();
-
+const About = ({ paragraphs, actual_job }: AboutProps) => {
   return (
     <section>
       <div className="flex flex-col pt-4">
         <h1 className="text-3xl font-bold pb-4 underline">Sobre mi: </h1>
-        {info.paragraphs &&
-          info.paragraphs.map((p, index) => (
+        {paragraphs &&
+          paragraphs.map((p, index) => (
             <p className="text-sm font-normal" key={"about-p" + index}>
-              {p
-                .replace("{employer}", current_job.employer)
-                .replace("{position}", current_job.position)}
+              {actual_job
+                ? p
+                    .replace("{employer}", actual_job.employer)
+                    .replace("{position}", actual_job.position)
+                : p}
             </p>
           ))}
       </div>

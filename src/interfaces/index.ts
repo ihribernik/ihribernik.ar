@@ -9,6 +9,7 @@ import Twitter from "../assets/svg/Twitter";
 
 export interface AboutProps {
   paragraphs: string[];
+  actual_job?: Job;
 }
 
 export interface HeroProps {
@@ -43,7 +44,21 @@ export interface FooterProps {
   socialMediaButtons: SocialMediaItem[];
 }
 
+export interface Job {
+  date: string;
+  details: string[];
+  employer: string;
+  duration: number | undefined;
+  position: string;
+  stack: string[];
+}
+
+export interface JobProps {
+  jobs: Job[];
+}
+
 export interface InformationProps {
+  timeline: JobProps;
   hero: HeroProps;
   about: AboutProps;
   footer: FooterProps;

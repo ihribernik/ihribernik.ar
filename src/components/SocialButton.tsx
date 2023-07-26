@@ -1,14 +1,12 @@
 import React from "react";
 
-const SocialButton = ({
-  children,
-  href,
-  color,
-}: {
+interface SocialButtonProps {
   children: React.ReactNode;
   href: string;
   color: string;
-}) => {
+}
+
+const SocialButton = ({ children, href, color }: SocialButtonProps) => {
   return (
     <a
       href={href}
