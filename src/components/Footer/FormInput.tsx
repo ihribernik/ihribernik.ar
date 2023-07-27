@@ -1,9 +1,4 @@
-interface FormInputProps {
-  type: string;
-  name: string;
-  id: string;
-  displayText: string;
-}
+import { FormInputProps } from "../../interfaces/FormInputProps";
 
 export function FormInput({ type, name, id, displayText }: FormInputProps) {
   return (

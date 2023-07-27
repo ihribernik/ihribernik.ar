@@ -1,4 +1,5 @@
-import { AboutProps } from "../interfaces";
+import { AboutProps } from "../../interfaces";
+import { AboutParagraphs } from "./AboutParagraphs";
 
 const About = ({ paragraphs, actual_job }: AboutProps) => {
   return (
@@ -7,13 +8,11 @@ const About = ({ paragraphs, actual_job }: AboutProps) => {
         <h1 className="text-3xl font-bold pb-4 underline">Sobre mi: </h1>
         {paragraphs &&
           paragraphs.map((p, index) => (
-            <p className="text-sm font-normal" key={"about-p" + index}>
-              {actual_job
-                ? p
-                    .replace("{employer}", actual_job.employer)
-                    .replace("{position}", actual_job.position)
-                : p}
-            </p>
+            <AboutParagraphs
+              key={"about-p" + index}
+              p={p}
+              actual_job={actual_job}
+            />
           ))}
       </div>
     </section>

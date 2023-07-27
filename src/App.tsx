@@ -1,4 +1,3 @@
-import { CvButton } from "./components/CvButton.tsx";
 import About from "./components/About";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
@@ -10,8 +9,7 @@ function App() {
   return (
     <>
       <div className="bg-stone-50 dark:bg-stone-900 text-stone-900 dark:text-stone-300 min-h-screen font-inter">
-        <div className="max-w-5xl w-11/12 mx-auto">
-          <CvButton />
+        <div className="max-w-5xl w-11/12 mx-auto my-auto">
           <Hero {...information.hero} />
           <About
             paragraphs={information.about.paragraphs}
@@ -20,6 +18,7 @@ function App() {
           <Portfolio enabled={false} />
           <Timeline jobs={information.timeline.jobs} />
           <Footer {...information.footer} />
+          {/* <CvButton /> */}
         </div>
       </div>
     </>

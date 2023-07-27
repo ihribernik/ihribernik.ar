@@ -1,4 +1,4 @@
-import { Job, JobProps } from "../interfaces";
+import { Job, JobProps } from "../../interfaces";
 import TimelineItem from "./TimelineItem";
 
 const Timeline = ({ jobs }: JobProps) => {

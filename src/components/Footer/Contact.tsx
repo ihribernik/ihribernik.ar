@@ -10,17 +10,10 @@ const Contact = () => {
       "message"
     ) as HTMLInputElement | null;
     if (mailTo != null && name != null && message != null) {
-      const mailToValue = new XMLSerializer().serializeToString(
-        document.createTextNode(mailTo.value)
-      );
-      const nameValue = new XMLSerializer().serializeToString(
-        document.createTextNode(name.value)
-      );
-      const messageValue = new XMLSerializer().serializeToString(
-        document.createTextNode(message.value)
-      );
-      const newLocation = `mailto:${mailToValue}?subject=${nameValue}&body=${messageValue}`;
+      const newLocation = `mailto:${mailTo.value}?subject=${name.value}&body=${message.value}`;
       window.open(newLocation);
+    } else {
+      console.log("Error al enviar el mensaje de contacto");
     }
   };
 

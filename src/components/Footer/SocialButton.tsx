@@ -1,10 +1,4 @@
-import React from "react";
-
-interface SocialButtonProps {
-  children: React.ReactNode;
-  href: string;
-  color: string;
-}
+import { SocialButtonProps } from "../../interfaces/SocialButtonProps";
 
 const SocialButton = ({ children, href, color }: SocialButtonProps) => {
   return (
