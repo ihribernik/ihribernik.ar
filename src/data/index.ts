@@ -19,7 +19,7 @@ const information: InformationProps = {
           "Colaboración en el mantenimiento y deploy de la aplicación en los diferentes ambientes utilizando Github actions.",
         ],
         employer: "Grupo IEB",
-        duration: dateDiff("2023/05"),
+        duration: dateDiff("2023-05", "2023-07"),
         position: "Full stack developer",
         stack: [
           "python",
