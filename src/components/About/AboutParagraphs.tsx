@@ -1,10 +1,6 @@
-export function AboutParagraphs({
-  actual_job,
-  p,
-}: {
-  actual_job?: { employer: string; position: string };
-  p: string;
-}) {
+import { AboutParagraphsProps } from "../../interfaces/AboutParagraphsProps";
+
+export function AboutParagraphs({ actual_job, p }: AboutParagraphsProps) {
   return (
     <p className="text-sm font-normal">
       {actual_job

@@ -1,4 +1,4 @@
-import { TimeLineItemProps } from "../interfaces/TimeLineItemProps";
+import { TimeLineItemProps } from "../../interfaces/TimeLineItemProps";
 
 const TimelineItem = ({
   date,
