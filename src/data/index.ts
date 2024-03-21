@@ -13,6 +13,20 @@ const information: InformationProps = {
   timeline: {
     jobs: [
       {
+        date: "2023/09",
+        details: [
+          "migracion de reporteria a un nuevo stack utilizando python y anvil"
+        ],
+        employer: "Adviters",
+        duration: dateDiff("2023-09"),
+        position: "Software Engineer",
+        stack: [
+          "python",
+          "anvil",
+          "Sql server",
+        ]
+      },
+      {
         date: "2023/05",
         details: [
           "Desarrollo y mantenimiento de bots y plataformas de trading algoritmico",
@@ -135,7 +149,7 @@ const information: InformationProps = {
     firstName: 'Claudio',
     secondName: 'Ivan',
     lastName: 'Hribernik',
-    title: 'Analista de sistemas y web developer'
+    title: 'Analista de sistemas y web developer',
   },
   about: {
     paragraphs: [
