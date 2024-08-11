@@ -1,8 +1,8 @@
-import About from "./components/About";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-import Portfolio from "./components/Portfolio";
-import Timeline from "./components/Timeline";
+import About from "./components/about";
+import Footer from "./components/footer";
+import Hero from "./components/hero";
+import Portfolio from "./components/portfolio";
+import Timeline from "./components/timeline";
 import information from "./data";
 
 function App() {
