@@ -1,5 +1,5 @@
 import { AboutProps } from "../../interfaces";
-import { AboutParagraphs } from "./AboutParagraphs";
+import { AboutParagraphs } from "./about-paragraphs";
 
 const About = ({ paragraphs, actual_job }: AboutProps) => {
   return (

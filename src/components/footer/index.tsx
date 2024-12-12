@@ -1,11 +1,12 @@
 import { FooterProps } from "../../interfaces";
 import Contact from "./Contact";
-import SocialButton from "./SocialButton";
+import SocialButton from "./social-button";
 import { styles } from "../../styles/styles";
 
-const Footer = (info: FooterProps) => {
+const Footer = () => {
   const creationDate = new Date("2022-12-01").getFullYear();
   const currentDate = new Date().getFullYear();
+  const info = {} as FooterProps;
 
   return (
     <footer className={styles.footer}>
