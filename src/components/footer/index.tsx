@@ -3,10 +3,9 @@ import Contact from "./Contact";
 import SocialButton from "./social-button";
 import { styles } from "../../styles/styles";
 
-const Footer = () => {
+const Footer = ({ socialMediaButtons, contact }: FooterProps) => {
   const creationDate = new Date("2022-12-01").getFullYear();
   const currentDate = new Date().getFullYear();
-  const info = {} as FooterProps;
 
   return (
     <footer className={styles.footer}>
@@ -15,7 +14,7 @@ const Footer = () => {
           <span>Conéctate conmigo en las redes sociales:</span>
         </div>
         <div className=" lg:flex lg:justify-center">
-          {info.socialMediaButtons.map((item, index) => (
+          {socialMediaButtons.map((item, index) => (
             <SocialButton
               href={item.href}
               color={item.color}
@@ -40,7 +39,7 @@ const Footer = () => {
             <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
               Contacto
             </h6>
-            {info.contact.map((item, index) => (
+            {contact.map((item, index) => (
               <p
                 className="mb-4 flex items-center justify-center md:justify-start"
                 key={"footer-p-" + index}
