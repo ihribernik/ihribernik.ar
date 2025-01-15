@@ -1,27 +1,29 @@
-import { Job, JobProps } from "../../interfaces";
-import TimelineItem from "./timeline-item";
+import { Job } from "../../interfaces";
 
-const Timeline = ({ jobs }: JobProps) => {
+type Props = { jobs: Job[] };
+
+const TimeLine = ({ jobs }: Props) => {
   return (
-    <div className="py-3 px-3">
-      <h1 className="text-3xl font-bold pb-4 underline">Timeline</h1>
-
-      <ol className="flex flex-col relative border-l border-yellow-300">
-        {jobs &&
-          jobs.map((job: Job, index: number) => (
-            <TimelineItem
-              key={index}
-              date={job.date}
-              details={job.details}
-              employer={job.employer}
-              position={job.position}
-              stack={job.stack}
-              duration={job.duration}
-            />
-          ))}
-      </ol>
-    </div>
+    <>
+      <section id="timeline" className="py-16 bg-gray-50">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-8">Timeline</h2>
+          <div className="space-y-8">
+            {jobs.map((job) => (
+              <div className="flex items-center">
+                <div className="w-1/4 text-right pr-8">
+                  <p className="font-bold text-yellow-500">{job.date}</p>
+                </div>
+                <div className="w-3/4 bg-white p-6 shadow-md rounded-lg">
+                  <p>{job.details}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
-export default Timeline;
+export default TimeLine;

@@ -1,25 +1,24 @@
+import React from "react";
+import Navbar from "./components/navbar";
 import About from "./components/about";
-import Footer from "./components/footer";
-import Header from "./components/header";
-import Main from "./components/main";
-import Timeline from "./components/timeline";
-import information from "./data/index";
+import TimeLine from "./components/timeline";
+import Contact from "./components/contact";
+import information from "./data";
+import Hero from "./components/hero";
 
 function App() {
   return (
     <>
-      <Header />
-      <About
-        paragraphs={information.about.paragraphs}
-        actual_job={information.about.actual_job}
-      />
-      <Main />
-      <Timeline jobs={information.timeline.jobs} />
-      <Footer
-        contact={information.footer.contact}
-        socialMediaButtons={information.footer.socialMediaButtons}
-      />
-
+      <div className="bg-gray-100 text-gray-800">
+        <Navbar />
+        <Hero full_name={information.about.full_name} title={information.about.title}/>
+        <About
+          puesto={information.about.title}
+          paragrap={information.about.paragraphs}
+        />
+        <TimeLine jobs={information.jobs} />
+        <Contact />
+      </div>
     </>
   );
 }
