@@ -15,7 +15,12 @@ const TimeLine = ({ jobs }: Props) => {
                   <p className="font-bold text-yellow-500">{job.date}</p>
                 </div>
                 <div className="w-3/4 bg-white p-6 shadow-md rounded-lg">
-                  <p>{job.details}</p>
+                  <strong>
+                    {job.position} - {job.employer}
+                  </strong>
+                  {job.details.map((detail) => (
+                    <p>{detail}</p>
+                  ))}
                 </div>
               </div>
             ))}

@@ -12,7 +12,9 @@ const About = ({ puesto, paragrap }: Props) => {
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Sobre mí</h2>
           <p className="text-lg text-gray-600 mb-8">{puesto}</p>
-          <p className="text-gray-700">{paragrap}</p>
+          {paragrap.map((p) => (
+            <p className="text-gray-700">{p}</p>
+          ))}
         </div>
       </section>
     </>

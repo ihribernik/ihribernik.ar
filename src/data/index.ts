@@ -6,22 +6,26 @@ import Instagram from "../assets/svg/Instagram";
 import Linkedin from "../assets/svg/Linkedin";
 import Phone from "../assets/svg/Phone";
 import Twitter from "../assets/svg/Twitter";
-import { InformationProps, Job } from "../interfaces";
+import { Job } from "../interfaces";
 import { dateDiff } from "../utils";
 
 const jobs: Job[] = [
   {
-    date: "2023/09",
+    date: "2023-09",
     details: [
-      "migracion de reporteria a un nuevo stack utilizando python y anvil",
+      "Referente a nivel técnico dentro de la célula del cliente.",
+      "Generación de aplicaciones usando Python y diferentes frameworks (flask y anvil), con conexión a diferentes base de datos y consumo de diferentes fuentes de datos (buckets s3 para consumo de archivos de datos, api de diferentes apps), asi también como generacion de etiquetas e impresión de las mismas en puntos dentro de la planta.",
+      "Generación de reportería y dashboard, para la visualización de datos para diferentes sectores del cliente.",
+      "Asistencia en los deploys y automatización de procesos rutinarios (service units, cron Jobs, ci/cd, etc ).",
+      "Instalación de observabilidad en varios servidores para utilizando diferentes tools (datadog, etc).",
     ],
     employer: "Adviters",
     duration: dateDiff("2023-09"),
     position: "Software Engineer",
-    stack: ["python", "anvil", "Sql server"],
+    stack: ["python", "anvil", "Sql server", "flask", "javascript"],
   },
   {
-    date: "2023/05",
+    date: "2023-05",
     details: [
       "Desarrollo y mantenimiento de bots y plataformas de trading algoritmico",
       "Colaboración en el mantenimiento y deploy de la aplicación en los diferentes ambientes utilizando Github actions.",
@@ -40,7 +44,7 @@ const jobs: Job[] = [
     ],
   },
   {
-    date: "2022/03",
+    date: "2022-03",
     details: [
       "Desarrollo de la plataforma Tokenize & Trace de la compañía, evolución de la plataforma de Carnes  Validadas. La cual consiste en un ecosistema de aplicaciones para la tokenización de diferentes activos de diferentes cadenas de suministros utilizando la blockchain de Algorand para el stampe de assets.",
       "Apoyo técnico en la creación de nuevos modelos de información para las diferentes cadenas de suministros.",
@@ -53,7 +57,7 @@ const jobs: Job[] = [
     stack: ["nodejs", "react", "express", "mongo", "postgresql"],
   },
   {
-    date: "2021/12",
+    date: "2021-12",
     details: [
       "Desarrollo de microservicios para el principal middleware de la empresa destinado a la alta/configuración de nuevos dispositivos de red.",
       "Migración de código legacy escrito en php para que se adecue a los nuevos estándares de desarrollo en el área de middleware.",
@@ -71,7 +75,7 @@ const jobs: Job[] = [
     ],
   },
   {
-    date: "2020/07",
+    date: "2020-07",
     details: [
       "Desarrollo  de nuevas características de una solución SaaS la cual estaba destinada a la optimizacion de procesos para la industria de centro de contacto a clientes. Dicha solución estaba constituida como un proyecto fullStack en Python por un lado, y por el otro una API para que cada cliente pueda consumir información directamente y adecuarla a sus necesidades.",
       "Colaboración en las diferentes tareas relacionadas a la gestión de los proyectos, como por ejemplo la planificación de los sprints, code review de las diferentes pull request, deploys, etc.",
@@ -82,7 +86,7 @@ const jobs: Job[] = [
     stack: ["python", "pyramid", "django", "postgresql", "redis"],
   },
   {
-    date: "2019/03",
+    date: "2019-03",
     details: [
       "Migración  de plataforma de decisión de una importante empresa de scoring crediticio a  microservicios en Python.",
       "Análisis y corrección de diferentes bug en la vieja plataforma de decisión, para su futura implementación dentro de los nuevos microservicios.",
@@ -94,7 +98,7 @@ const jobs: Job[] = [
   },
 
   {
-    date: "2018/10",
+    date: "2018-10",
     details: [
       "Mantenimiento y mejoras de diferentes aplicaciones dentro de una importante empresa automovilística.",
     ],
@@ -105,7 +109,7 @@ const jobs: Job[] = [
   },
 
   {
-    date: "2018/01",
+    date: "2018-01",
     details: [
       "Mantenimiento y mejoras de diferentes aplicaciones dentro de una importante empresa bancaria.",
       "Análisis  de cancelaciones para futuras mejoras e implementaciones de estas.",
@@ -117,7 +121,7 @@ const jobs: Job[] = [
   },
 
   {
-    date: "2017/05",
+    date: "2017-05",
     details: [
       "Desarrollo de un sistema de reportería dentro de una importante empresa bancaria. Para el Core Bancario T24 de Témenos de dicho cliente (bajo lenguaje infobasic/Jbasic).",
     ],
@@ -128,11 +132,11 @@ const jobs: Job[] = [
   },
 
   {
-    date: "2015/05",
+    date: "2015-05",
     details: [
       "Mejora del sistema de leasing e implementación de nuevas funcionalidades dentro de una importante empresa bancaria.",
     ],
-    employer: "CDA",
+    employer: "CDA Informática",
     duration: dateDiff("2015-05", "2017-05"),
     position: "Backend developer",
     stack: [],
