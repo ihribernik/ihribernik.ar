@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   return (
     <>
       <nav className="bg-yellow-500 text-white py-4">
@@ -34,4 +32,3 @@ const Navbar = (props: Props) => {
 };
 
 export default Navbar;
-

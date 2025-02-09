@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const Contact = (props: Props) => {
+const Contact = () => {
   return (
     <section id="contact" className="py-16 bg-white">
       <div className="container mx-auto">
@@ -37,7 +35,7 @@ const Contact = (props: Props) => {
             <textarea
               id="message"
               name="message"
-              rows="4"
+              rows={4}
               className="w-full p-2 border border-gray-300 rounded"
             ></textarea>
           </div>
@@ -54,4 +52,3 @@ const Contact = (props: Props) => {
 };
 
 export default Contact;
-
