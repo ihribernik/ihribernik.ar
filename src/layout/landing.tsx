@@ -5,39 +5,49 @@ import { Github, Linkedin } from "lucide-react";
 
 export default function LandingHribernik() {
   return (
-    <div className="min-h-screen bg-gray-900 text-white px-4 py-8">
-      <section className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Claudio Iván Hribernik</h1>
-        <h2 className="text-xl text-gray-400">
-          Full Stack Developer especializado en Agro, Fintech y Banca
-        </h2>
-        <p className="max-w-2xl mx-auto">
-          Más de 9 años creando soluciones escalables con Python, JavaScript y
-          tecnologías modernas. Consultoría y desarrollo freelance, con fuerte
-          enfoque en automatización y visualización de datos.
-        </p>
-        <div className="flex justify-center space-x-4">
-          <Button asChild variant="default">
-            <a href="mailto:cihribernik@gmail.com">Contáctame</a>
-          </Button>
-          <Button asChild variant="outline">
-            <a
-              href="https://github.com/ihribernik"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="w-4 h-4 mr-2" /> GitHub
-            </a>
-          </Button>
-          <Button asChild variant="outline">
-            <a
-              href="https://linkedin.com/in/claudio-ivan-hribernik-492255b8"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Linkedin className="w-4 h-4 mr-2" /> LinkedIn
-            </a>
-          </Button>
+    <div className="min-h-screen bg-background text-foreground px-4 py-8">
+      <section className="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left max-w-5xl mx-auto">
+        {/* Imagen personal */}
+        <img
+          src="/images/hero.jpg"
+          alt="Claudio Iván Hribernik"
+          className="w-32 h-32 rounded-full object-cover border-2 border-card shadow-lg"
+        />
+
+        {/* Info personal */}
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold">Claudio Iván Hribernik</h1>
+          <h2 className="text-xl text-muted-foreground">
+            Full Stack Developer especializado en Agro, Fintech y Banca
+          </h2>
+          <p className="max-w-xl">
+            Más de 9 años creando soluciones escalables con Python, JavaScript y
+            tecnologías modernas. Consultoría y desarrollo freelance, con fuerte
+            enfoque en automatización y visualización de datos.
+          </p>
+          <div className="flex flex-wrap justify-center md:justify-start gap-4">
+            <Button asChild variant="default">
+              <a href="mailto:cihribernik@gmail.com">Contáctame</a>
+            </Button>
+            <Button asChild variant="outline">
+              <a
+                href="https://github.com/ihribernik"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="w-4 h-4 mr-2" /> GitHub
+              </a>
+            </Button>
+            <Button asChild variant="outline">
+              <a
+                href="https://linkedin.com/in/claudio-ivan-hribernik-492255b8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="w-4 h-4 mr-2" /> LinkedIn
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -56,7 +66,7 @@ export default function LandingHribernik() {
             "Kubernetes",
             "AWS",
           ].map((tech) => (
-            <Card key={tech} className="bg-gray-800 border-none">
+            <Card key={tech} className="bg-card text-card-foreground">
               <CardContent className="p-4 text-center font-medium">
                 {tech}
               </CardContent>
@@ -70,7 +80,7 @@ export default function LandingHribernik() {
           Experiencia Destacada
         </h3>
         <div className="space-y-6">
-          <Card className="bg-gray-800 border-none">
+          <Card className="bg-card text-card-foreground">
             <CardContent className="p-4">
               <h4 className="font-semibold">
                 Software Engineer – Adviters (2023 – 2025)
@@ -83,7 +93,7 @@ export default function LandingHribernik() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-none">
+          <Card className="bg-card text-card-foreground">
             <CardContent className="p-4">
               <h4 className="font-semibold">
                 Full Stack – Origino (2022 – 2023)
@@ -95,7 +105,7 @@ export default function LandingHribernik() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-800 border-none">
+          <Card className="bg-card text-card-foreground">
             <CardContent className="p-4">
               <h4 className="font-semibold">
                 Full Stack – Telecentro (2021 – 2022)
