@@ -1,13 +1,15 @@
-import { ThemeToggle } from "@/components/theme-toggle";
+import BlogSection from "@/components/blog-section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin } from "lucide-react";
-import BlogSection from "@/components/blog-section";
 
 export default function LandingHribernik() {
   return (
     <div className="min-h-screen bg-background text-foreground px-4 py-8">
-      <section className="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left max-w-5xl mx-auto">
+      <section
+        className="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left max-w-5xl mx-auto"
+        id=""
+      >
         {/* Imagen personal */}
         <img
           src="/images/hero.jpg"
@@ -52,7 +54,7 @@ export default function LandingHribernik() {
         </div>
       </section>
 
-      <section className="mt-16">
+      <section className="mt-16" id="tecnologias">
         <h3 className="text-2xl font-semibold mb-6 text-center">Tecnologías</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {[
@@ -76,7 +78,7 @@ export default function LandingHribernik() {
         </div>
       </section>
 
-      <section className="mt-16 max-w-4xl mx-auto">
+      <section className="mt-16 max-w-4xl mx-auto" id="experiencia">
         <h3 className="text-2xl font-semibold mb-6 text-center">
           Experiencia Destacada
         </h3>
@@ -120,12 +122,25 @@ export default function LandingHribernik() {
         </div>
       </section>
 
-      <section className="mt-16 max-w-4xl mx-auto text-center">
-        <h3 className="text-2xl font-semibold mb-6">Formación Académica</h3>
-        <p>Licenciatura en Ciencia de Datos – Universidad Siglo 21 (35%)</p>
-        <p>Tecnicatura en Análisis de Sistemas – ISTEA (Promedio: 8.47)</p>
+      <section id="formacion" className="mt-16">
+        <h3 className="text-2xl font-semibold mb-6 text-center">
+          🎓 Formación Académica
+        </h3>
+        <div className="space-y-4 text-center text-base">
+          <div>
+            <p className="font-medium">
+              Tecnicatura en Análisis de Sistemas – ISTEA
+            </p>
+            <p className="text-muted-foreground">Promedio: 8.47</p>
+          </div>
+          <div>
+            <p className="font-medium">
+              Licenciatura en Ciencia de Datos – Universidad Siglo 21
+            </p>
+            <p className="text-muted-foreground">En curso (35% completado)</p>
+          </div>
+        </div>
       </section>
-      <BlogSection />
     </div>
   );
 }

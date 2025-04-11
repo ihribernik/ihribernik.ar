@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur border-b border-border">
       <div className="container mx-auto flex items-center justify-between py-4 px-4">
-        <a href="/" className="text-xl font-bold">
+        <a href="#" className="text-xl font-bold">
           Claudio Ivan Hribernik
         </a>
 
@@ -29,9 +29,6 @@ export default function Header() {
             className="hover:text-primary transition-colors"
           >
             Experiencia
-          </a>
-          <a href="#contacto" className="hover:text-primary transition-colors">
-            Contacto
           </a>
           <ThemeToggle />
         </nav>
@@ -59,13 +56,6 @@ export default function Header() {
                 className="hover:text-primary transition-colors"
               >
                 Experiencia
-              </a>
-              <a
-                onClick={() => setOpen(false)}
-                href="#contacto"
-                className="hover:text-primary transition-colors"
-              >
-                Contacto
               </a>
               <ThemeToggle />
             </nav>
