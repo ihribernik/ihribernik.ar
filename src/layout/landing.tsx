@@ -2,6 +2,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin } from "lucide-react";
+import BlogSection from "@/components/blog-section";
+
 export default function LandingHribernik() {
   return (
     <div className="min-h-screen bg-background text-foreground px-4 py-8">
@@ -123,6 +125,7 @@ export default function LandingHribernik() {
         <p>Licenciatura en Ciencia de Datos – Universidad Siglo 21 (35%)</p>
         <p>Tecnicatura en Análisis de Sistemas – ISTEA (Promedio: 8.47)</p>
       </section>
+      <BlogSection />
     </div>
   );
 }
