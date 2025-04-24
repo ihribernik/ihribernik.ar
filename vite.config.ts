@@ -7,7 +7,7 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
-    base: "",
+    base: process.env.DEPLOY_TARGET === "gh-pages" ? "/ihribernik.ar" : "",
     plugins: [react(), svgr(),],
     resolve: {
       alias: {
