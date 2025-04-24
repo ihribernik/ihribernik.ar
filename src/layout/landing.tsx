@@ -12,23 +12,24 @@ export default function LandingHribernik() {
     "Node.js",
     "PostgreSQL",
     "MongoDB",
+    "Docker",
     "Kubernetes",
     "AWS",
   ];
   const experience = [
     {
-      title: "Software Engineer – Adviters (2023 – 2025)",
+      title: "Software Engineer - Adviters (2023 - 2025)",
       body: `Desarrollo de aplicaciones en Python (Flask, Anvil),
              automatización de procesos, dashboards y visualización de datos
              en planta industrial.`,
     },
     {
-      title: "Full Stack – Origino (2022 – 2023)",
+      title: "Full Stack - Origino (2022 - 2023)",
       body: `Ecosistema Tokenize & Trace usando blockchain Algorand.
              Desarrollo y liderazgo técnico de librerías internas.`,
     },
     {
-      title: "Full Stack – Telecentro (2021 – 2022)",
+      title: "Full Stack - Telecentro (2021 - 2022)",
       body: `Microservicios para middleware, migración de legacy PHP,
              despliegue en Kubernetes y soporte DevOps.`,
     },
