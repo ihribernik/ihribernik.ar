@@ -16,7 +16,6 @@ export default function Header() {
           Claudio Ivan Hribernik
         </a>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <a
             href="#tecnologias"
@@ -33,7 +32,6 @@ export default function Header() {
           <ThemeToggle />
         </nav>
 
-        {/* Mobile nav */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden">
