@@ -57,11 +57,11 @@ export const experience = [
 ];
 export const education = [
     {
-        title: "Tecnicatura en Análisis de Sistemas - ISTEA",
-        body: "Promedio: 8.47",
+        title: "Licenciatura en Ciencia de Datos - Universidad Siglo 21 (cursando)",
+        body: "En curso (35% completado)",
     },
     {
-        title: "Licenciatura en Ciencia de Datos - Universidad Siglo 21",
-        body: "En curso (35% completado)",
+        title: "Tecnicatura en Análisis de Sistemas - ISTEA",
+        body: "Promedio: 8.47",
     },
 ];
