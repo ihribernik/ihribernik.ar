@@ -1,49 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin } from "lucide-react";
+import { technologies, experience, education } from "@/pages/api/info";
 
 export default function LandingHribernik() {
-  const technologies = [
-    "Python",
-    "Django",
-    "Flask",
-    "FastAPI",
-    "React",
-    "Node.js",
-    "PostgreSQL",
-    "MongoDB",
-    "Docker",
-    "Kubernetes",
-    "AWS",
-  ];
-  const experience = [
-    {
-      title: "Software Engineer - Adviters (2023 - 2025)",
-      body: `Desarrollo de aplicaciones en Python (Flask, Anvil),
-             automatización de procesos, dashboards y visualización de datos
-             en planta industrial.`,
-    },
-    {
-      title: "Full Stack - Origino (2022 - 2023)",
-      body: `Ecosistema Tokenize & Trace usando blockchain Algorand.
-             Desarrollo y liderazgo técnico de librerías internas.`,
-    },
-    {
-      title: "Full Stack - Telecentro (2021 - 2022)",
-      body: `Microservicios para middleware, migración de legacy PHP,
-             despliegue en Kubernetes y soporte DevOps.`,
-    },
-  ];
-  const education = [
-    {
-      title: "Tecnicatura en Análisis de Sistemas - ISTEA",
-      body: "Promedio: 8.47",
-    },
-    {
-      title: "Licenciatura en Ciencia de Datos - Universidad Siglo 21",
-      body: "En curso (35% completado)",
-    },
-  ];
   return (
     <div className="min-h-screen bg-background text-foreground px-4 py-8">
       <section
@@ -131,11 +91,11 @@ export default function LandingHribernik() {
           {education &&
             education.map(({ title, body }) => (
               <Card className="bg-card text-card-foreground">
-              <CardContent className="p-4">
-                <h4 className="font-semibold">{title}</h4>
-                <p>{body}</p>
-              </CardContent>
-            </Card>
+                <CardContent className="p-4">
+                  <h4 className="font-semibold">{title}</h4>
+                  <p>{body}</p>
+                </CardContent>
+              </Card>
             ))}
         </div>
       </section>
