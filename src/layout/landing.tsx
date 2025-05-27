@@ -10,11 +10,18 @@ export default function LandingHribernik() {
         className="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left max-w-5xl mx-auto"
         id=""
       >
-        <img
-          src="/assets/images/hero.jpg"
-          alt="Claudio Iván Hribernik"
-          className="w-32 h-32 rounded-full object-cover border-2 border-card shadow-lg"
-        />
+        <picture>
+          <source srcSet="/assets/images/hero.webp" type="image/webp" />
+          <img
+            srcSet="/assets/images/hero.jpg 1x, /assets/images/hero.jpg 2x"
+            src="/assets/images/hero.jpg"
+            alt="Foto de Claudio Iván Hribernik, desarrollador full stack"
+            className="w-32 h-32 rounded-full object-cover border-2 border-card shadow-lg"
+            loading="lazy"
+            width="128"
+            height="128"
+          />
+        </picture>
 
         <div className="space-y-4">
           <h1 className="text-4xl font-bold">Claudio Iván Hribernik</h1>
@@ -72,8 +79,8 @@ export default function LandingHribernik() {
         </h3>
         <div className="space-y-6">
           {experience &&
-            experience.map(({ title, body }) => (
-              <Card className="bg-card text-card-foreground">
+            experience.map(({ title, body }, idx) => (
+              <Card key={title + idx} className="bg-card text-card-foreground">
                 <CardContent className="p-4">
                   <h4 className="font-semibold">{title}</h4>
                   <p>{body}</p>
@@ -89,8 +96,8 @@ export default function LandingHribernik() {
         </h3>
         <div className="space-y-4">
           {education &&
-            education.map(({ title, body }) => (
-              <Card className="bg-card text-card-foreground">
+            education.map(({ title, body }, idx) => (
+              <Card key={title + idx} className="bg-card text-card-foreground">
                 <CardContent className="p-4">
                   <h4 className="font-semibold">{title}</h4>
                   <p>{body}</p>
