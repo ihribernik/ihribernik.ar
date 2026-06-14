@@ -1,31 +1,47 @@
+type ExperienceDuration = {
+  start: Date,
+  end: Date | undefined | null
+}
+
+type Navigation = {
+  href: string;
+  label: string
+}
+
+type SocialNavitation = Navigation & {
+  kind: "email" | "github" | "linkedin";
+};
+
+type Experience = {
+  title: string;
+  body: string;
+  duration: Array<ExperienceDuration>
+}
+
+type Education = {
+  title: string;
+  body: string;
+}
+
+type Hero = {
+  name: string;
+  role: string;
+  summary: string;
+  image: Image;
+};
+
+type Image = {
+  src: string;
+  srcSet: string;
+  webpSrc: string;
+  alt: string;
+};
+
 export type PortfolioData = {
-  hero: {
-    name: string;
-    role: string;
-    summary: string;
-    image: {
-      src: string;
-      srcSet: string;
-      webpSrc: string;
-      alt: string;
-    };
-  };
-  navigation: Array<{
-    href: string;
-    label: string;
-  }>;
-  socialLinks: Array<{
-    href: string;
-    label: string;
-    kind: "email" | "github" | "linkedin";
-  }>;
-  technologies: string[];
-  experience: Array<{
-    title: string;
-    body: string;
-  }>;
-  education: Array<{
-    title: string;
-    body: string;
-  }>;
+  hero: Hero;
+  navigation: Array<Navigation>;
+  socialLinks: Array<SocialNavitation>;
+  technologies: Array<string>;
+  experience: Array<Experience>;
+  education: Array<Education>;
 };
