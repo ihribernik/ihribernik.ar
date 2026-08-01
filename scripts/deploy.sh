@@ -55,7 +55,8 @@ trap rollback HUP INT TERM
 if ! docker compose -f "$COMPOSE_FILE" config -q \
   || ! docker compose -f "$COMPOSE_FILE" pull web \
   || ! docker compose -f "$COMPOSE_FILE" up -d --wait --wait-timeout 60 \
-  || ! curl --fail --silent --show-error --retry 5 --retry-all-errors https://ihribernik.ar/ >/dev/null; then
+  || ! curl --fail --silent --show-error --retry 5 --retry-all-errors https://ihribernik.ar/ >/dev/null \
+  || ! curl --fail --silent --show-error --retry 5 --retry-all-errors https://ihribernik.ar/en/ >/dev/null; then
   rollback
   exit 1
 fi

@@ -1,50 +1,32 @@
 {
-  "name": "portfolio-v2",
+  "name": "ihribernik-ar",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "homepage": "https://ihribernik.ar",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+  "engines": {
+    "node": ">=24"
   },
-  "dependencies": {
-    "@radix-ui/react-dialog": "^1.1.7",
-    "@radix-ui/react-slot": "^1.2.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "front-matter": "^4.0.2",
-    "lucide-react": "^0.487.0",
-    "next-themes": "^0.4.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-markdown": "^10.1.0",
-    "remark": "^15.0.1",
-    "remark-gfm": "^4.0.1",
-    "remark-html": "^16.0.1",
-    "tailwind-merge": "^3.2.0",
-    "tailwindcss-animate": "^1.0.7",
-    "vite-plugin-svgr": "^2.4.0"
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "npm run check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "lint": "eslint . --max-warnings 0",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "test:e2e": "npm run build && playwright test"
   },
   "devDependencies": {
-    "@iconify/react": "^5.2.1",
-    "@tailwindcss/forms": "^0.5.3",
-    "@types/node": "^22.14.0",
-    "@types/react": "^18.0.37",
-    "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.59.0",
-    "@typescript-eslint/parser": "^5.59.0",
-    "@vitejs/plugin-react-swc": "^3.0.0",
-    "autoprefixer": "^10.4.14",
-    "eslint": "^8.38.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
-    "postcss": "^8.4.24",
-    "tailwindcss": "^3.3.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.9",
-    "vite-plugin-markdown": "^2.2.0"
+    "@eslint/js": "^10.0.1",
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/sitemap": "^3.7.3",
+    "@playwright/test": "^1.62.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.6",
+    "eslint": "^10.8.0",
+    "eslint-plugin-astro": "^3.0.1",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.65.0"
   }
 }

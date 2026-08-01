@@ -1,6 +1,6 @@
 # ihribernik.ar
 
-Personal portfolio built with React, TypeScript, Vite, Tailwind CSS, and nginx.
+Bilingual personal portfolio built with Astro, TypeScript, and Tailwind CSS. Spanish is served at `/` and English at `/en/`; the production output is fully static and served by nginx.
 
 ## Local development
 
@@ -9,37 +9,31 @@ npm ci
 npm run dev
 ```
 
-Local production container:
+Astro starts at `http://localhost:4321`. Other validation commands:
 
 ```bash
-docker compose up --build
+npm run lint
+npm run check
+npm run build
+npm run test:e2e
 ```
 
-Open `http://localhost:3000`.
+Install Chromium once before running browser tests locally:
+
+```bash
+npx playwright install chromium
+```
+
+To exercise the production container, run `docker compose up --build` and open `http://localhost:3000`.
+
+## Content
+
+Future projects and articles are typed Astro Content Collections. Add Markdown or MDX files below `src/content/projects/{es,en}/` or `src/content/writing/{es,en}/`. Entries default to draft status and do not generate public pages until `draft: false` is set. See `src/content.config.ts` for required frontmatter.
+
+Spanish project and article URLs use `/proyectos/` and `/articulos/`; English URLs use `/en/projects/` and `/en/writing/`. Set the same optional `translationKey` on related entries to enable alternate-language metadata.
 
 ## Production
 
-Production URL: `https://ihribernik.ar`. Traefik runs as shared VPS ingress and routes traffic to this app through external Docker network `proxy`. Portfolio publishes no host port.
+Pushes to `main` run linting, type checks, a static build, and Chromium smoke tests. GitHub Actions then publishes `ghcr.io/ihribernik/ihribernik.ar:sha-<commit>` and deploys it to the VPS through the external `proxy` network. The deployment verifies both localized homepages and rolls back on failure.
 
-Deployment flow:
-
-1. Push to `main` runs lint and build.
-2. GitHub Actions publishes `ghcr.io/ihribernik/ihribernik.ar:sha-<commit>`.
-3. Workflow copies production Compose manifest to VPS.
-4. VPS pulls exact SHA and waits for healthy container.
-5. Failed health or public request restores previous SHA.
-
-Create GitHub environment named `production` with secrets:
-
-- `VPS_HOST`
-- `VPS_USER` (`deploy`)
-- `VPS_SSH_PRIVATE_KEY`
-- `VPS_KNOWN_HOSTS`
-
-Set environment variable `VPS_SSH_PORT` to `22`. Record `VPS_KNOWN_HOSTS` from trusted VPS host-key fingerprint, not from an unverified deployment connection.
-
-First GHCR publication may require package visibility changed to public in GitHub package settings. Production VPS then pulls anonymously.
-
-Manual rollback: run **Build and deploy** workflow with an existing `sha-<40-character-commit>` image tag.
-
-Shared Traefik configuration and VPS bootstrap instructions live in [`ihribernik/ihribernik-vps`](https://github.com/ihribernik/ihribernik-vps), keeping ingress lifecycle separate from portfolio releases.
+Required `production` environment secrets are `VPS_HOST`, `VPS_USER`, `VPS_SSH_PRIVATE_KEY`, and `VPS_KNOWN_HOSTS`; `VPS_SSH_PORT` defaults to `22`. Manual rollback uses the **Build and deploy** workflow with an existing `sha-<40-character-commit>` image tag.

@@ -163,6 +163,9 @@ dist
 **/*.back.*
 
 node_modules
+playwright-report/
+test-results/
+.astro/
 
 *.sublime*
 
