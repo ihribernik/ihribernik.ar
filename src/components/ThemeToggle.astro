@@ -1,0 +1,48 @@
+---
+import Icon from "@/components/Icon.astro";
+import type { PortfolioCopy } from "@/i18n/types";
+
+interface Props {
+  labels: PortfolioCopy["interface"];
+}
+
+const { labels } = Astro.props;
+---
+
+<button
+  type="button"
+  class="theme-toggle icon-button"
+  data-theme-toggle
+  data-light-label={labels.switchToLight}
+  data-dark-label={labels.switchToDark}
+  aria-label={labels.switchToDark}
+>
+  <span data-theme-icon="moon"><Icon name="moon" /></span>
+  <span data-theme-icon="sun" hidden><Icon name="sun" /></span>
+</button>
+
+<script>
+  const updateThemeButtons = () => {
+    const isDark = document.documentElement.classList.contains("dark");
+    document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+      button.setAttribute("aria-label", isDark ? button.dataset.lightLabel ?? "" : button.dataset.darkLabel ?? "");
+      button.querySelector<HTMLElement>('[data-theme-icon="moon"]')!.hidden = isDark;
+      button.querySelector<HTMLElement>('[data-theme-icon="sun"]')!.hidden = !isDark;
+    });
+  };
+
+  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextTheme = document.documentElement.classList.contains("dark") ? "light" : "dark";
+      document.documentElement.classList.toggle("dark", nextTheme === "dark");
+      try {
+        localStorage.setItem("theme", nextTheme);
+      } catch {
+        // Keep the active theme even when storage is unavailable.
+      }
+      updateThemeButtons();
+    });
+  });
+
+  updateThemeButtons();
+</script>

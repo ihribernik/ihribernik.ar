@@ -1,0 +1,10 @@
+---
+import PortfolioPage from "@/components/PortfolioPage.astro";
+import { portfolioByLocale } from "@/i18n/portfolio";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const copy = portfolioByLocale.es;
+---
+<BaseLayout locale="es" title={copy.seo.title} description={copy.seo.description} canonicalPath="/">
+  <PortfolioPage copy={copy} />
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import "@/styles/global.css";
+import type { Locale } from "@/i18n/types";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  socialImage?: string;
+  alternatePaths?: Partial<Record<Locale, string>>;
+}
+
+const {
+  locale,
+  title,
+  description,
+  canonicalPath,
+  socialImage = "/assets/images/hero.jpg",
+  alternatePaths = { es: "/", en: "/en/" },
+} = Astro.props;
+const canonical = new URL(canonicalPath, Astro.site);
+const alternateEs = alternatePaths.es ? new URL(alternatePaths.es, Astro.site) : undefined;
+const alternateEn = alternatePaths.en ? new URL(alternatePaths.en, Astro.site) : undefined;
+const socialImageUrl = new URL(socialImage, Astro.site);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {alternateEs && <link rel="alternate" hreflang="es" href={alternateEs} />}
+    {alternateEn && <link rel="alternate" hreflang="en" href={alternateEn} />}
+    {alternateEs && <link rel="alternate" hreflang="x-default" href={alternateEs} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={locale === "es" ? "es_AR" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script is:inline>
+      (() => {
+        let stored = null;
+        try {
+          stored = localStorage.getItem("theme");
+        } catch {
+          // Storage can be unavailable in privacy-restricted contexts.
+        }
+        const dark = stored === "dark" || (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

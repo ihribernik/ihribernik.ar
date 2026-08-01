@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "@/assets/hero.jpg";
+import ContentCard from "@/components/ContentCard.astro";
+import Header from "@/components/Header.astro";
+import Icon from "@/components/Icon.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import type { PortfolioCopy } from "@/i18n/types";
+
+interface Props { copy: PortfolioCopy }
+const { copy } = Astro.props;
+const sectionIds = copy.locale === "es"
+  ? { technologies: "tecnologias", experience: "experiencia", education: "formacion" }
+  : { technologies: "technologies", experience: "experience", education: "education" };
+---
+
+<Header copy={copy} />
+<main class="min-h-screen bg-background px-4 py-8 text-foreground">
+  <section class="mx-auto flex max-w-5xl flex-col items-center justify-center gap-8 text-center md:flex-row md:text-left" id={copy.locale === "es" ? "inicio" : "home"}>
+    <Image
+      src={heroImage}
+      alt={copy.hero.imageAlt}
+      class="h-32 w-32 rounded-full border-2 border-card object-cover shadow-lg"
+      width={128}
+      height={171}
+      format="webp"
+      quality={82}
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="space-y-4">
+      <h1 class="text-4xl font-bold">{copy.hero.name}</h1>
+      <p class="text-xl text-muted-foreground">{copy.hero.role}</p>
+      <p class="max-w-xl">{copy.hero.summary}</p>
+      <div class="flex flex-wrap justify-center gap-4 md:justify-start">
+        {copy.socialLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={["button", link.kind === "email" ? "button-primary" : "button-outline"]}
+            target={link.kind === "email" ? undefined : "_blank"}
+            rel={link.kind === "email" ? undefined : "noopener noreferrer"}
+          >
+            <Icon name={link.kind === "email" ? "mail" : link.kind} class="h-4 w-4" />
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-16" id={sectionIds.technologies}>
+    <SectionHeading title={copy.sections.technologies} />
+    <div class="mx-auto grid max-w-4xl grid-cols-2 gap-4 md:grid-cols-4">
+      {copy.technologies.map((technology) => (
+        <div class="rounded-xl border bg-card p-4 text-center font-medium text-card-foreground shadow">{technology}</div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto mt-16 max-w-4xl" id={sectionIds.experience}>
+    <SectionHeading title={copy.sections.experience} />
+    <div class="space-y-6">
+      {copy.experience.map((item) => <ContentCard title={item.title} body={item.body} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto mt-16 max-w-4xl" id={sectionIds.education}>
+    <SectionHeading title={copy.sections.education} />
+    <div class="space-y-4">
+      {copy.education.map((item) => <ContentCard title={item.title} body={item.body} />)}
+    </div>
+  </section>
+</main>

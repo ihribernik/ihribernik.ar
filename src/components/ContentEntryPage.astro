@@ -1,0 +1,38 @@
+---
+import { Image } from "astro:assets";
+import { render, type CollectionEntry } from "astro:content";
+import { entryPath, translatedEntryPath, type ContentCollection } from "@/content/helpers";
+import { homePath } from "@/i18n/routes";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+interface Props {
+  collection: ContentCollection;
+  entry: CollectionEntry<ContentCollection>;
+}
+
+const { collection, entry } = Astro.props;
+const { Content } = await render(entry);
+const canonicalPath = entryPath(collection, entry);
+const translationPath = await translatedEntryPath(collection, entry);
+const alternateLocale = entry.data.locale === "es" ? "en" : "es";
+---
+
+<BaseLayout
+  locale={entry.data.locale}
+  title={`${entry.data.title} - Claudio Iván Hribernik`}
+  description={entry.data.description}
+  canonicalPath={canonicalPath}
+  alternatePaths={translationPath ? { [entry.data.locale]: canonicalPath, [alternateLocale]: translationPath } : undefined}
+>
+  <main class="mx-auto min-h-screen max-w-3xl px-4 py-12">
+    <a class="language-link mb-8 px-3" href={homePath[entry.data.locale]}>{entry.data.locale === "es" ? "← Inicio" : "← Home"}</a>
+    <article>
+      <header class="mb-10 space-y-4">
+        <h1 class="text-4xl font-bold">{entry.data.title}</h1>
+        <p class="text-lg text-muted-foreground">{entry.data.description}</p>
+        {entry.data.cover && <Image src={entry.data.cover} alt="" class="w-full rounded-xl" />}
+      </header>
+      <div class="prose-content"><Content /></div>
+    </article>
+  </main>
+</BaseLayout>

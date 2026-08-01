@@ -1,0 +1,58 @@
+---
+import Icon from "@/components/Icon.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import { homePath } from "@/i18n/routes";
+import type { Locale, PortfolioCopy } from "@/i18n/types";
+
+interface Props {
+  copy: PortfolioCopy;
+}
+
+const { copy } = Astro.props;
+const alternateLocale: Locale = copy.locale === "es" ? "en" : "es";
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+    <a href={homePath[copy.locale]} class="text-xl font-bold">{copy.hero.name}</a>
+
+    <nav class="hidden items-center gap-6 text-sm md:flex" aria-label="Primary">
+      {copy.navigation.map((item) => <a href={item.href} class="transition-colors hover:text-primary">{item.label}</a>)}
+      <a class="language-link" href={homePath[alternateLocale]} lang={alternateLocale} hreflang={alternateLocale}>
+        {alternateLocale.toUpperCase()}
+        <span class="sr-only"> — {copy.interface.switchLanguage}</span>
+      </a>
+      <ThemeToggle labels={copy.interface} />
+    </nav>
+
+    <button class="icon-button md:hidden" type="button" data-menu-open aria-label={copy.interface.openMenu} aria-haspopup="dialog">
+      <Icon name="menu" />
+    </button>
+  </div>
+</header>
+
+<dialog class="mobile-menu m-0 h-full max-h-none w-64 max-w-[85vw] bg-background p-6 text-foreground" data-mobile-menu aria-label={copy.interface.openMenu}>
+  <button class="icon-button ml-auto" type="button" data-menu-close aria-label={copy.interface.closeMenu}>
+    <Icon name="x" />
+  </button>
+  <nav class="mt-6 flex flex-col gap-4 text-sm" aria-label="Primary mobile">
+    {copy.navigation.map((item) => <a href={item.href} data-menu-link class="transition-colors hover:text-primary">{item.label}</a>)}
+    <a class="language-link w-fit" href={homePath[alternateLocale]} lang={alternateLocale} hreflang={alternateLocale}>
+      {alternateLocale.toUpperCase()}
+      <span class="sr-only"> — {copy.interface.switchLanguage}</span>
+    </a>
+    <ThemeToggle labels={copy.interface} />
+  </nav>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
+  const openButton = document.querySelector<HTMLButtonElement>("[data-menu-open]");
+
+  openButton?.addEventListener("click", () => dialog?.showModal());
+  dialog?.querySelector<HTMLButtonElement>("[data-menu-close]")?.addEventListener("click", () => dialog.close());
+  dialog?.querySelectorAll("[data-menu-link]").forEach((link) => link.addEventListener("click", () => dialog.close()));
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+</script>
