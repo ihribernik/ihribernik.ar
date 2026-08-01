@@ -3,13 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "www.ihribernik.com",
+  "homepage": "https://ihribernik.ar",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "deploy": "gh-pages -d dist -r https://github.com/ihribernik/ihribernik.ar.git"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.7",
@@ -46,7 +45,6 @@
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
-    "vite-plugin-markdown": "^2.2.0",
-    "gh-pages": "^5.0.0"
+    "vite-plugin-markdown": "^2.2.0"
   }
 }

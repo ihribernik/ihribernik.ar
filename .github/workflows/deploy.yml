@@ -1,0 +1,104 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: Existing sha-<40-character-commit> tag to roll back to
+        required: false
+        type: string
+
+concurrency:
+  group: portfolio-production
+  cancel-in-progress: false
+
+env:
+  IMAGE_NAME: ghcr.io/ihribernik/ihribernik.ar
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  publish:
+    if: github.event_name == 'push' || inputs.image_tag == ''
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Build image
+        run: |
+          docker build \
+            --build-arg "VCS_REF=${GITHUB_SHA}" \
+            --tag "${IMAGE_NAME}:sha-${GITHUB_SHA}" \
+            --tag "${IMAGE_NAME}:main" \
+            .
+      - name: Push image
+        run: |
+          docker push "${IMAGE_NAME}:sha-${GITHUB_SHA}"
+          docker push "${IMAGE_NAME}:main"
+
+  deploy:
+    if: >-
+      always() &&
+      needs.validate.result == 'success' &&
+      (needs.publish.result == 'success' || needs.publish.result == 'skipped')
+    needs: [validate, publish]
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://ihribernik.ar
+    permissions:
+      contents: read
+    env:
+      IMAGE_TAG: ${{ inputs.image_tag != '' && inputs.image_tag || format('sha-{0}', github.sha) }}
+      VPS_PORT: ${{ vars.VPS_SSH_PORT || '22' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+      - name: Copy deployment files
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh -i ~/.ssh/deploy_key -p "$VPS_PORT" \
+            "${VPS_USER}@${VPS_HOST}" "mkdir -p /opt/apps/portfolio"
+          scp -i ~/.ssh/deploy_key -P "$VPS_PORT" \
+            compose.production.yml "${VPS_USER}@${VPS_HOST}:/opt/apps/portfolio/compose.next.yml"
+          scp -i ~/.ssh/deploy_key -P "$VPS_PORT" \
+            scripts/deploy.sh "${VPS_USER}@${VPS_HOST}:/opt/apps/portfolio/deploy.sh"
+      - name: Deploy image
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh \
+            -i ~/.ssh/deploy_key \
+            -p "$VPS_PORT" \
+            "${VPS_USER}@${VPS_HOST}" \
+            "chmod 700 /opt/apps/portfolio/deploy.sh && /opt/apps/portfolio/deploy.sh '${IMAGE_TAG}'"
