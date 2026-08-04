@@ -8,20 +8,21 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
-    "build": "npm run check && ASTRO_TELEMETRY_DISABLED=1 astro build",
-    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "npm run check && cross-env ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "check": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
     "lint": "eslint . --max-warnings 0",
-    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "preview": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "test:e2e": "npm run build && playwright test"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@astrojs/check": "^0.9.10",
     "@astrojs/sitemap": "^3.7.3",
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.62.1",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.6",
+    "cross-env": "10.1.0",
     "eslint": "^10.8.0",
     "eslint-plugin-astro": "^3.0.1",
     "sharp": "^0.35.3",
