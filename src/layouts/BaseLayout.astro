@@ -20,8 +20,12 @@ const {
   alternatePaths = { es: "/", en: "/en/" },
 } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site);
-const alternateEs = alternatePaths.es ? new URL(alternatePaths.es, Astro.site) : undefined;
-const alternateEn = alternatePaths.en ? new URL(alternatePaths.en, Astro.site) : undefined;
+const alternateEs = alternatePaths.es
+  ? new URL(alternatePaths.es, Astro.site)
+  : undefined;
+const alternateEn = alternatePaths.en
+  ? new URL(alternatePaths.en, Astro.site)
+  : undefined;
 const socialImageUrl = new URL(socialImage, Astro.site);
 ---
 
@@ -36,7 +40,11 @@ const socialImageUrl = new URL(socialImage, Astro.site);
     <link rel="canonical" href={canonical} />
     {alternateEs && <link rel="alternate" hreflang="es" href={alternateEs} />}
     {alternateEn && <link rel="alternate" hreflang="en" href={alternateEn} />}
-    {alternateEs && <link rel="alternate" hreflang="x-default" href={alternateEs} />}
+    {
+      alternateEs && (
+        <link rel="alternate" hreflang="x-default" href={alternateEs} />
+      )
+    }
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={socialImageUrl} />
@@ -51,7 +59,10 @@ const socialImageUrl = new URL(socialImage, Astro.site);
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script is:inline>
       (() => {
         let stored = null;
@@ -60,7 +71,10 @@ const socialImageUrl = new URL(socialImage, Astro.site);
         } catch {
           // Storage can be unavailable in privacy-restricted contexts.
         }
-        const dark = stored === "dark" || (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        const dark =
+          stored === "dark" ||
+          (stored !== "light" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
         document.documentElement.classList.toggle("dark", dark);
       })();
     </script>

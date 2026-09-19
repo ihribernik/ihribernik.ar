@@ -24,25 +24,38 @@ const { labels } = Astro.props;
 <script>
   const updateThemeButtons = () => {
     const isDark = document.documentElement.classList.contains("dark");
-    document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
-      button.setAttribute("aria-label", isDark ? button.dataset.lightLabel ?? "" : button.dataset.darkLabel ?? "");
-      button.querySelector<HTMLElement>('[data-theme-icon="moon"]')!.hidden = isDark;
-      button.querySelector<HTMLElement>('[data-theme-icon="sun"]')!.hidden = !isDark;
-    });
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
+      .forEach((button) => {
+        button.setAttribute(
+          "aria-label",
+          isDark
+            ? (button.dataset.lightLabel ?? "")
+            : (button.dataset.darkLabel ?? ""),
+        );
+        button.querySelector<HTMLElement>('[data-theme-icon="moon"]')!.hidden =
+          isDark;
+        button.querySelector<HTMLElement>('[data-theme-icon="sun"]')!.hidden =
+          !isDark;
+      });
   };
 
-  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const nextTheme = document.documentElement.classList.contains("dark") ? "light" : "dark";
-      document.documentElement.classList.toggle("dark", nextTheme === "dark");
-      try {
-        localStorage.setItem("theme", nextTheme);
-      } catch {
-        // Keep the active theme even when storage is unavailable.
-      }
-      updateThemeButtons();
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextTheme = document.documentElement.classList.contains("dark")
+          ? "light"
+          : "dark";
+        document.documentElement.classList.toggle("dark", nextTheme === "dark");
+        try {
+          localStorage.setItem("theme", nextTheme);
+        } catch {
+          // Keep the active theme even when storage is unavailable.
+        }
+        updateThemeButtons();
+      });
     });
-  });
 
   updateThemeButtons();
 </script>
