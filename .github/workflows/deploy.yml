@@ -3,6 +3,7 @@ name: Build and deploy
 on:
   push:
     branches: [main]
+
   workflow_dispatch:
     inputs:
       image_tag:
@@ -20,30 +21,48 @@ env:
 jobs:
   validate:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Install Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: E2E tests
+        run: pnpm test:e2e
 
   publish:
     if: github.event_name == 'push' || inputs.image_tag == ''
     needs: validate
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
       - name: Build image
         run: |
           docker build \
@@ -51,6 +70,7 @@ jobs:
             --tag "${IMAGE_NAME}:sha-${GITHUB_SHA}" \
             --tag "${IMAGE_NAME}:main" \
             .
+
       - name: Push image
         run: |
           docker push "${IMAGE_NAME}:sha-${GITHUB_SHA}"
@@ -61,18 +81,24 @@ jobs:
       always() &&
       needs.validate.result == 'success' &&
       (needs.publish.result == 'success' || needs.publish.result == 'skipped')
+
     needs: [validate, publish]
     runs-on: ubuntu-latest
+
     environment:
       name: production
       url: https://ihribernik.ar
+
     permissions:
       contents: read
+
     env:
       IMAGE_TAG: ${{ inputs.image_tag != '' && inputs.image_tag || format('sha-{0}', github.sha) }}
       VPS_PORT: ${{ vars.VPS_SSH_PORT || '22' }}
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Configure SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
@@ -82,6 +108,7 @@ jobs:
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/deploy_key ~/.ssh/known_hosts
+
       - name: Copy deployment files
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -89,10 +116,13 @@ jobs:
         run: |
           ssh -i ~/.ssh/deploy_key -p "$VPS_PORT" \
             "${VPS_USER}@${VPS_HOST}" "mkdir -p /opt/apps/portfolio"
+
           scp -i ~/.ssh/deploy_key -P "$VPS_PORT" \
             compose.production.yml "${VPS_USER}@${VPS_HOST}:/opt/apps/portfolio/compose.next.yml"
+
           scp -i ~/.ssh/deploy_key -P "$VPS_PORT" \
             scripts/deploy.sh "${VPS_USER}@${VPS_HOST}:/opt/apps/portfolio/deploy.sh"
+
       - name: Deploy image
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
