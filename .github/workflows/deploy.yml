@@ -1,20 +1,13 @@
-name: Build and deploy
+name: Build and publish
 
 on:
   push:
     branches:
       - main
 
-  workflow_dispatch:
-    inputs:
-      image_tag:
-        description: Existing sha-<40-character-commit> tag to roll back to
-        required: false
-        type: string
-
 concurrency:
-  group: portfolio-production
-  cancel-in-progress: false
+  group: portfolio-build
+  cancel-in-progress: true
 
 env:
   IMAGE_NAME: ghcr.io/ihribernik/ihribernik.ar
@@ -51,7 +44,6 @@ jobs:
         run: pnpm test:e2e
 
   publish:
-    if: github.event_name == 'push' || inputs.image_tag == ''
     needs: validate
     runs-on: ubuntu-latest
 
@@ -81,93 +73,3 @@ jobs:
         run: |
           docker push "${IMAGE_NAME}:sha-${GITHUB_SHA}"
           docker push "${IMAGE_NAME}:main"
-
-  deploy:
-    if: >-
-      always() &&
-      needs.validate.result == 'success' &&
-      (needs.publish.result == 'success' || needs.publish.result == 'skipped')
-
-    needs:
-      - validate
-      - publish
-
-    runs-on: ubuntu-latest
-
-    environment:
-      name: production
-      url: https://ihribernik.ar
-
-    permissions:
-      contents: read
-
-    env:
-      IMAGE_TAG: ${{ inputs.image_tag != '' && inputs.image_tag || format('sha-{0}', github.sha) }}
-      VPS_PORT: ${{ vars.VPS_SSH_PORT || '22' }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Configure SSH
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
-          SSH_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-        run: |
-          set -euo pipefail
-
-          : "${VPS_HOST:?VPS_HOST is not set}"
-          : "${VPS_USER:?VPS_USER is not set}"
-          : "${SSH_PRIVATE_KEY:?VPS_SSH_PRIVATE_KEY is not set}"
-          : "${SSH_KNOWN_HOSTS:?VPS_KNOWN_HOSTS is not set}"
-
-          install -m 700 -d ~/.ssh
-
-          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
-          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-
-          chmod 600 ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/known_hosts
-
-      - name: Copy deployment files
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-        run: |
-          set -euo pipefail
-
-          target="${VPS_USER}@${VPS_HOST}"
-
-          ssh \
-            -i ~/.ssh/deploy_key \
-            -p "$VPS_PORT" \
-            "$target" \
-            "mkdir -p /opt/apps/portfolio"
-
-          scp \
-            -i ~/.ssh/deploy_key \
-            -P "$VPS_PORT" \
-            compose.production.yml \
-            "$target:/opt/apps/portfolio/compose.next.yml"
-
-          scp \
-            -i ~/.ssh/deploy_key \
-            -P "$VPS_PORT" \
-            scripts/deploy.sh \
-            "$target:/opt/apps/portfolio/deploy.sh"
-
-      - name: Deploy image
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-        run: |
-          set -euo pipefail
-
-          target="${VPS_USER}@${VPS_HOST}"
-
-          ssh \
-            -i ~/.ssh/deploy_key \
-            -p "$VPS_PORT" \
-            "$target" \
-            "chmod 700 /opt/apps/portfolio/deploy.sh && /opt/apps/portfolio/deploy.sh '${IMAGE_TAG}'"
