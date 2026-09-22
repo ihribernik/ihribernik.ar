@@ -112,7 +112,16 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
         run: |
+          set -euo pipefail
+
+          : "${VPS_HOST:?VPS_HOST is not set}"
+          : "${VPS_USER:?VPS_USER is not set}"
+          : "${SSH_PRIVATE_KEY:?VPS_SSH_PRIVATE_KEY is not set}"
+          : "${SSH_KNOWN_HOSTS:?VPS_KNOWN_HOSTS is not set}"
+
           install -m 700 -d ~/.ssh
 
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
@@ -126,31 +135,39 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
         run: |
+          set -euo pipefail
+
+          target="${VPS_USER}@${VPS_HOST}"
+
           ssh \
             -i ~/.ssh/deploy_key \
             -p "$VPS_PORT" \
-            "${VPS_USER}@${VPS_HOST}" \
+            "$target" \
             "mkdir -p /opt/apps/portfolio"
 
           scp \
             -i ~/.ssh/deploy_key \
             -P "$VPS_PORT" \
             compose.production.yml \
-            "${VPS_USER}@${VPS_HOST}:/opt/apps/portfolio/compose.next.yml"
+            "$target:/opt/apps/portfolio/compose.next.yml"
 
           scp \
             -i ~/.ssh/deploy_key \
             -P "$VPS_PORT" \
             scripts/deploy.sh \
-            "${VPS_USER}@${VPS_HOST}:/opt/apps/portfolio/deploy.sh"
+            "$target:/opt/apps/portfolio/deploy.sh"
 
       - name: Deploy image
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
         run: |
+          set -euo pipefail
+
+          target="${VPS_USER}@${VPS_HOST}"
+
           ssh \
             -i ~/.ssh/deploy_key \
             -p "$VPS_PORT" \
-            "${VPS_USER}@${VPS_HOST}" \
+            "$target" \
             "chmod 700 /opt/apps/portfolio/deploy.sh && /opt/apps/portfolio/deploy.sh '${IMAGE_TAG}'"
